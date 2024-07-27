@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+<head>
+    <meta charset="UTF-8">
+    <title>View Car</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+        background-color: #333;
+<!--            background-image: url('https://wrench.com/blog/content/images/2021/09/cars-in-lot.jpg'); /* Add the path to your background image */-->
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar-brand {
+            font-family: 'Arial', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            font-family: 'Arial', sans-serif;
+            font-size: 1rem;
+        }
+        .header-content {
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+        .header-content h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        .header-content p {
+            font-size: 1.5rem;
+        }
+        .table-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+        .btn-primary {
+            background-color: #ff007b;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #e6006f;
+        }
+        .btn-delete {
+            background-color: #ff4c4c;
+            border: none;
+            color: white;
+        }
+        .btn-delete:hover {
+            background-color: #e60000;
+        }
+        .btn-update {
+            background-color: #ffbb33;
+            border: none;
+            color: white;
+        }
+        .btn-update:hover {
+            background-color: #e6a000;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Employee Management System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="createEmployee">Add Employee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="viewAllEmployees">View Employees</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="createDepartment">Add Department</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="viewAllDepartments">View Departments</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container table-container">
+
+    <h1 class="text-center">List of Employees</h1>
+    <hr>
+    <form class="d-flex justify-content-end mb-3">
+        <input type="text" class="form-control w-25 me-2" placeholder="Search" name="keyword" id="keyword" th:value="${keyword}">
+        <button type="submit" value="search" class="btn btn-primary">Search</button>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${employee.empty}">
+            <td colspan="6" class="text-center">No data available</td>
+        </tr>
+        <tr th:each="emp : ${employee}">
+            <td th:text="${emp.id}"></td>
+            <td th:text="${emp.name}"></td>
+            <td th:text="${emp.email}"></td>
+            <td th:text="${emp.phone}"></td>
+            <td th:text="${emp.salary}"></td>
+            <td>
+                <a th:href="@{/delete/{id}(id=${emp.id})}" class="btn btn-delete">Delete</a>
+                <a th:href="@{/edit/{id}(id=${emp.id})}" class="btn btn-update">Update</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+</body>
+</html>
